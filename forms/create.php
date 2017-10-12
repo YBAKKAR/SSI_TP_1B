@@ -123,7 +123,10 @@
 					</script>
 				</div>
                 <div class="form-group">
+					
                     <div class="col-md-offset-3 col-md-9">
+					<div class="g-recaptcha" data-sitekey="6LcjRzQUAAAAAJgJqUhWPPGr_xJDEpdJWRg4ka5a"></div>
+					<br/>
 						<input id="btn-signup" type="submit" class="btn btn-info" name="submit" type="submit" value="Valider"/>
                     </div>
                 </div>
@@ -131,3 +134,5 @@
          </div>
     </div>
 </div>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>

@@ -18,9 +18,12 @@
 						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 						<input id="login-password" type="password" class="form-control" name="password" placeholder="mot de passe">
 					</div>
+					
+					
 					<div style="margin-top:10px" class="form-group">
 
-						<div class="col-sm-12 controls"><input id="btn-signup" type="submit" class="btn btn-info" name="submit" type="submit" value="Se connecter"/></div>
+						<div class="col-sm-12 controls">
+						<input id="btn-signup" type="submit" class="btn btn-info" name="submit" type="submit" value="Se connecter"/></div>
 					</div>
 					<div class="form-group">
 						<div class="col-md-12 control">
