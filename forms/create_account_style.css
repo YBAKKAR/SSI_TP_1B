@@ -34,3 +34,7 @@
     left: -5px;
     content: "✖";
 }
+
+.confirm-error {
+    border:2px solid red;
+  }

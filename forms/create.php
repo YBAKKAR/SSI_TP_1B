@@ -96,9 +96,35 @@
 						</script>
 
                 </div>
+				<div class="form-group">
+					<label for="password" class="col-md-3 control-label">Confirmation du mot de passe</label>
+                    	<div class="col-md-9">
+                        	<input type="password" id="confirmpsw" class="form-control" name="confirme-password" onchange="confirmPassword()" placeholder="Confirmer votre mot de passe"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                    	</div>
+					<script>
+						function confirmPassword()
+						{
+							var password = document.getElementById("psw").value;
+							var confirmpsw = document.getElementById("confirmpsw").value;
+							if( password != confirmpsw)
+							{
+								console.log("non");
+								document.getElementById("confirmpsw").className += " confirm-error";
+							}
+							else
+							{
+								console.log("password match")
+								document.getElementById("confirmpsw").className = "";
+								document.getElementById("confirmpsw").className += " form-control";
+
+							}
+
+						}
+					</script>
+				</div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9">
-                        <input id="btn-signup" type="submit" class="btn btn-info" name="submit" type="submit" value="Valider"/>
+						<input id="btn-signup" type="submit" class="btn btn-info" name="submit" type="submit" value="Valider"/>
                     </div>
                 </div>
             </form>
