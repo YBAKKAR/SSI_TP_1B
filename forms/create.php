@@ -1,42 +1,5 @@
 <head>
-<style>
-/* The message box is shown when the user clicks on the password field */
-#message {
-    display:none;
-    //	background: #f1f1f1;
-    color: #000;
-    position: relative;
-    padding: 20px;
-    margin-top: 10%;
-}
-
-#message p {
-    padding: 5px 45px;
-    font-size: 13px;
-}
-
-/* Add a green text color and a checkmark when the requirements are right */
-.valid {
-    color: green;
-}
-
-.valid:before {
-    position: relative;
-    left: -5px;
-    content: "✔";
-}
-
-/* Add a red text color and an "x" when the requirements are wrong */
-.invalid {
-    color: red;
-}
-
-.invalid:before {
-    position: relative;
-    left: -5px;
-    content: "✖";
-}
-</style>
+	<link rel="stylesheet" type="text/css" href="forms/create_account_style.css">
 </head>
 
 <div id="signupbox" style="display:none;margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
