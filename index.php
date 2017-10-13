@@ -68,6 +68,7 @@
 				} else {
 					echo file_get_contents("forms/login.php");
 					echo file_get_contents("forms/create.php");	
+					echo file_get_contents("forms/forgot_password.php");
 				}
 			}
 		?>
