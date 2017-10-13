@@ -41,22 +41,11 @@
 					$stmt = mysqli_stmt_init($mysqli);
 					$username = trim($_POST['username']);
 					$password = trim($_POST['password']);
-					//$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+					$options = [
+						'salt' => hash("sha256",$username),
+					];
+					$password = password_hash ($password ,PASSWORD_DEFAULT, $options);
 					//superadmin'# : SQLi
-					/*$result = mysqli_query($mysqli,$query)or die(mysqli_error());
-					$num_row = mysqli_num_rows($result);
-					$row=mysqli_fetch_array($result);*/
-
-					/*if( $num_row == 1 )
-					{
-						$_SESSION['username']=$row['username'];
-						header("Location: home.php");
-						exit;
-					}*//* else {
-						echo "Erreur d'identification";
-						exit;
-					}*/
-					
 					$query = "SELECT username, password FROM user WHERE username=? AND password =? ";
 					if(mysqli_stmt_prepare($stmt,$query))
 					{
@@ -64,7 +53,6 @@
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_bind_result($stmt,$username,$password);
 						mysqli_stmt_fetch($stmt);
-						//echo ($username .' '.$password);
 						echo (is_null($username));
 						
 						if( !is_null($username))
