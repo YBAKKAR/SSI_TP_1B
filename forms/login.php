@@ -4,7 +4,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<div class="panel-title">Connectez vous</div>
-				<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Mot de passe oublié ?</a></div>
+				<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#"  onClick="$('#loginbox').hide(); $('#forget-password-box').show()">Mot de passe oublié ?</a></div>
 			</div>     
 			<div style="padding-top:30px" class="panel-body" >
 				<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>

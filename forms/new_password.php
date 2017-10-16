@@ -1,16 +1,30 @@
-<div id="forget-password-box" style="display:none;margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<?php 
+	
+	include('../conf/db.inc');
+	$stmt = mysqli_stmt_init($mysqli);
+	$email = $_GET['email'];
+	$token = $_GET['token'];
+	
+	$query = "SELECT username FROM user WHERE token=? AND email =? AND active = 1";
+	if(mysqli_stmt_prepare($stmt,$query))
+	{
+		mysqli_stmt_bind_param($stmt,'ss',$token,$email);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt,$username);
+		mysqli_stmt_fetch($stmt);
+		
+		if( !is_null($username) )
+		{
+			// user exist & token is correct ==> pwd shall be renewed
+		?>
+		<div id="new-password-box" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">Reinit password</div>
         </div>
         <div class="panel-body" >
-            <form id="signupform" class="form-horizontal" role="form" action="verify.php" method="post">
-                <div class="form-group">
-                    <label for="username" class="col-md-3 control-label">Email</label>
-                    <div class="col-md-9">
-                        <input name="email" class="form-control" placeholder="Votre email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Format de l'email inccorect"/>
-                    </div>
-                </div>
+            <form id="newPwdForm" class="form-horizontal" role="form" action="verify.php" method="post">
+
                 <div class="form-group">
                     <label for="username" class="col-md-3 control-label">Nouveau mot de passe</label>
                     <div class="col-md-9">
@@ -50,3 +64,15 @@
         </div>
     </div>
 </div>
+		
+		<?php
+			exit;
+		} else {
+			echo "Erreur d'identification";
+			exit;
+		}
+	}
+
+
+?>
+

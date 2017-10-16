@@ -62,9 +62,9 @@
 										'salt' => hash("sha256",$username),
 									];
 									$password = password_hash ($_POST['password'],PASSWORD_DEFAULT,$options);
-									$hash = md5( rand(0,1000) );
+									$token = md5( rand(0,1000) );
 									
-									$sql2 = "INSERT INTO user (username, email,token, password) VALUES ('$username', '$email','$hash','$password')";
+									$sql2 = "INSERT INTO user (username, email,token, password) VALUES ('$username', '$email','$token','$password')";
 									$result2 = mysqli_query($mysqli,$sql2) or die(mysqli_error());
 
 									if($result2)
@@ -72,15 +72,13 @@
 										$to = $email;
 										$subject = "Confirmation de création de votre compte Wahoo!";
 										$header = "Wahoo! - Votre compte";
-										$message = "Vos identifiants Wahoo! : \n";
+										$message = "Votre username Wahoo! : \n";
 										$message .= "    Login: $username\n";
-										$message .= "    Mot de passe: $password\n";
 										$message .= "    Cliquez sur ce lien pour activer votre compte:\n";
-										$message .= "    localhost/wahoo/verification.php?email=$email&hash=$hash \n";
+										$message .= "    http://localhost/wahoo/activation.php?user=$username&token=$token \n";
 										$message .= "A bientôt !";
 
 										$sentmail = mail($to,$subject,$message,$header);
-										echo $message;
 
 										if($sentmail)
 										{

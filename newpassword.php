@@ -1,3 +1,31 @@
+<?php 
+	
+	include('conf/db.inc');
+	$stmt = mysqli_stmt_init($mysqli);
+	$email = $_GET['user'];
+	$token = $_GET['token'];
+	
+	$query = "SELECT username FROM user WHERE token=? AND email =? AND active = 1";
+	if(mysqli_stmt_prepare($stmt,$query))
+	{
+		mysqli_stmt_bind_param($stmt,'ss',$token,$email);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_bind_result($stmt,$username);
+		mysqli_stmt_fetch($stmt);
+		
+		if( !is_null($username) )
+		{
+			// user exist & token is correct ==> pwd shall be renewed
+			exit;
+		} else {
+			echo "Erreur d'identification";
+			exit;
+		}
+	}
+
+
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
