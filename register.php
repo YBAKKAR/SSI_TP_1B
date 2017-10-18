@@ -64,7 +64,7 @@
 									$password = password_hash ($_POST['password'],PASSWORD_DEFAULT,$options);
 									$token = md5( rand() );
 									
-									$sql2 = "INSERT INTO user (username, email,token, password) VALUES ('$username', '$email','$token','$password')";
+									$sql2 = "INSERT INTO user (username, email,token, password,active) VALUES ('$username', '$email','$token','$password',0)";
 									$result2 = mysqli_query($mysqli,$sql2) or die(mysqli_error());
 
 									if($result2)
