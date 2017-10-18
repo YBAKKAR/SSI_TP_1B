@@ -62,7 +62,7 @@
 										'salt' => hash("sha256",$username),
 									];
 									$password = password_hash ($_POST['password'],PASSWORD_DEFAULT,$options);
-									$token = md5( rand(0,1000) );
+									$token = md5( rand() );
 									
 									$sql2 = "INSERT INTO user (username, email,token, password) VALUES ('$username', '$email','$token','$password')";
 									$result2 = mysqli_query($mysqli,$sql2) or die(mysqli_error());

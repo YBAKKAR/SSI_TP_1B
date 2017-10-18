@@ -12,36 +12,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="username" class="col-md-3 control-label">Nouveau mot de passe</label>
-                    <div class="col-md-9">
-                        <input id="new-psw" name="new-password" class="form-control" placeholder="Votre Nouveau mot de passe"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="username" class="col-md-3 control-label">Confirmez le mot de passe</label>
-                    <div class="col-md-9">
-                        <input id="confirm-new-psw" name="new-password-confirm" onchange="confirmNewPassword()" class="form-control" placeholder="Confirmer le mot de passe"/>
-                    </div>
-                    <script>
-                        function confirmNewPassword()
-						{
-							var password = document.getElementById("new-psw").value;
-							var confirmpsw = document.getElementById("confirm-new-psw").value;
-							if( password != confirmpsw)
-							{
-								document.getElementById("confirm-new-psw").className += " confirm-error";
-							}
-							else
-							{
-								document.getElementById("confirm-new-psw").className = "";
-								document.getElementById("confirm-new-psw").className += " form-control";
-
-							}
-
-						}
-                    </script>
-                </div>
-                <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
                             <input id="btn-reinit-psw" type="submit" class="btn btn-info" name="submit" type="submit" value="Valider"/>
                         </div>

@@ -13,7 +13,7 @@
 			if(preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$/", $_POST['email']))
 			{
 				$email= $_POST['email'];
-				$token = md5( rand(0,1000) );
+				$token = md5( rand() );
 				$query = "UPDATE user SET token='$token' WHERE email=? AND active = 1";
 					if(mysqli_stmt_prepare($stmt,$query))
 					{
