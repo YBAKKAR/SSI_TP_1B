@@ -9,7 +9,7 @@
 
 		<?php
 			session_start();
-			if($_SESSION['username'] == '' OR !isset($_COOKIE['username']))
+			if(!isset($_COOKIE[$_SESSION['username']]) || !isset($_SESSION['username']) || $_COOKIE[$_SESSION['username']] != $_SESSION['username'])
 			{
 				header("Location: index.php");
 				exit;
@@ -45,9 +45,5 @@
 				</div>
 			</div>
 		</div>
-
 	</body>
-
-
-
 </html>

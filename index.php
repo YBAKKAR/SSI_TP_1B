@@ -31,10 +31,12 @@
 				unset($_SESSION['error']);
 			}
 
-			if(isset($_COOKIE['username']) && isset($_SESSION['username']))
+			if(isset($_SESSION['username']) && isset($_COOKIE[$_SESSION['username']])  && $_COOKIE[$_SESSION['username']]==$_SESSION['username'])
 			{
 				header("Location: home.php");
-			} else {
+			} 
+			else 
+			{
 				if(isset($_POST['submit']))
 				{
 					include('conf/db.inc');
@@ -59,7 +61,8 @@
 						{
 							$_SESSION['username']=$username;
 							
-							if (!isset($_COOKIE['username'])){
+							if (!isset($_COOKIE[$username]))
+							{
 								$limiter=":";
 								$str="$username$limiter".rand().":".(time()+60*5)."$limiter";
 								$options = [
@@ -74,7 +77,7 @@
 								$subject = "Wahoo! - Authentification à deux facteur:";
 								$header = "Wahoo! - Authentification à deux facteur:";
 								$message = "    Voici le code à utiliser pour votre 1er Authentification:\n";
-								$message .= "    <b>$two_factor_token</b>\n";
+								$message .= "    $two_factor_token\n";
 								$message .= "A bientôt !";
 
 								$sentmail = mail($to,$subject,$message,$header);
@@ -82,22 +85,26 @@
 								if($sentmail)
 								{
 									header("Location: 2_auth_step_verification.php");
-								} else {
+								} 
+								else 
+								{
 									echo "<p class=\"bg-danger\">Erreur lors de l'envoi du mail de confirmation.</p>";
 								}
-								//session_destroy();
 								exit;
 							}
-							else{
+							else
+							{
 								header("Location: home.php");
 							}
 							exit;
-						} else {
+						} else
+						 {
 							echo "Erreur d'identification";
 							exit;
 						}
 					}
-				} else {
+				} else 
+				{
 					echo file_get_contents("forms/login.php");
 					echo file_get_contents("forms/create.php");	
 					echo file_get_contents("forms/forgot_password.php");

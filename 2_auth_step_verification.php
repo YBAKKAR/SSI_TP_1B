@@ -48,9 +48,10 @@
         ];
         $token_validator = password_hash ($str,PASSWORD_DEFAULT,$options);
         $token_validator = base64_encode($str.$token_validator);
-        if($token_validator == $_POST['token-verif']){
+        if($token_validator == $_POST['token-verif'] ){
             if(time()<=$exp){
-                setcookie('username',$_SESSION['username'],time()+3600*24*30);
+                setcookie($username,$_SESSION['username'],time()+3600*24*30);
+                echo "$username";
                 header("Location: index.php");
             }else{
                 session_destroy();
