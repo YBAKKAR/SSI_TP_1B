@@ -47,12 +47,12 @@
 					];
 					$password = password_hash ($password ,PASSWORD_DEFAULT, $options);
 					//superadmin'# : SQLi
-					$query = "SELECT username, password,token,active FROM user WHERE username=? AND password =? ";
+					$query = "SELECT username,email, password,token,active FROM user WHERE username=? AND password =? ";
 					if(mysqli_stmt_prepare($stmt,$query))
 					{
 						mysqli_stmt_bind_param($stmt,'ss',$username,$password);
 						mysqli_stmt_execute($stmt);
-						mysqli_stmt_bind_result($stmt,$username,$password,$token,$active);
+						mysqli_stmt_bind_result($stmt,$username,$email,$password,$token,$active);
 						mysqli_stmt_fetch($stmt);
 						//echo (is_null($username));
 						
@@ -61,7 +61,24 @@
 							$_SESSION['username']=$username;
 							
 							if (!isset($_COOKIE['username'])){
-								echo " 2 factor auth required & create a cookie in verify token";
+								$two_factor_token = substr(md5(rand()),rand(0,26),5);
+
+								$to = $email;
+								$subject = "Wahoo! - Authentification à deux facteur:";
+								$header = "Wahoo! - Authentification à deux facteur:";
+								$message = "    Voici le code à utiliser pour votre 1er Authentification:\n";
+								$message .= "    $two_factor_token";
+								$message .= "A bientôt !";
+
+								$sentmail = mail($to,$subject,$message,$header);
+
+								if($sentmail)
+								{
+									echo "go to header verif token";
+								} else {
+									echo "<p class=\"bg-danger\">Erreur lors de l'envoi du mail de confirmation.</p>";
+								}
+
 								echo "setcookie('username',$username,time()+3600*24*30); in token verif";
 								session_destroy();
 								exit;
