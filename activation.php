@@ -9,7 +9,7 @@
 	{
 		mysqli_stmt_bind_param($stmt,'ss',$username,$token);
 		mysqli_stmt_execute($stmt);
-		
+		echo $username." ".$token;
 		if( mysqli_affected_rows($mysqli) > 0)
 		{
 			session_start();

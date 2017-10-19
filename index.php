@@ -59,7 +59,16 @@
 						if( !is_null($username) && $active==1)
 						{
 							$_SESSION['username']=$username;
-							header("Location: home.php");
+							
+							if (!isset($_COOKIE['username'])){
+								echo " 2 factor auth required & create a cookie in verify token";
+								echo "setcookie('username',$username,time()+3600*24*30); in token verif";
+								session_destroy();
+								exit;
+							}
+							else{
+								header("Location: home.php");
+							}
 							exit;
 						} else {
 							echo "Erreur d'identification";
