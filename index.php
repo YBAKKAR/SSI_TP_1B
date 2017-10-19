@@ -21,9 +21,18 @@
 					  	<div class=\"panel panel-info\">
 							<div class=\"panel-heading\">
 								<div class=\"panel-title\">Erreur</div>";
+			if(isset($_SESSION['error']['username']))	
+			{
 				echo "<p class=\"text-danger\">".$_SESSION['error']['username']."</p>";
+			}
+			if(isset($_SESSION['error']['email']))
+			{
 				echo "<p class=\"text-danger\">".$_SESSION['error']['email']."</p>";
+			}
+			if(isset($_SESSION['error']['password']))
+			{	
 				echo "<p class=\"text-danger\">".$_SESSION['error']['password']."</p>";
+			}
 				echo "			</div>
 							</div>
 						</div>

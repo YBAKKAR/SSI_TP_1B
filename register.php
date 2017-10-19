@@ -21,6 +21,7 @@
 							session_start();
 
 							include('conf/db.inc');
+							$stmt =  mysqli_stmt_init($mysqli);
 
 							if(isset($_POST['submit']))
 							{
@@ -36,13 +37,27 @@
 									{
 										$username = $_POST['username'];
 										$email= $_POST['email'];
-										$sql1 = "SELECT * FROM user WHERE email = '$email' OR username= '$username'";
-										$result1 = mysqli_query($mysqli,$sql1) or die(mysqli_error());
+										$username1 = null;
+										$email1 = null;
+										$sql1 = "SELECT username,email FROM user WHERE email = ? OR username= ?";
+										if(mysqli_stmt_prepare($stmt,$sql1))
+										{
+											mysqli_stmt_bind_param($stmt,'ss',$email,$username);
+											mysqli_stmt_execute($stmt);
+											mysqli_stmt_bind_result($stmt,$username1,$email1);
+											mysqli_stmt_fetch($stmt);
+											if( !is_null($username1) || !is_null(email1))
+											{
+												$_SESSION['error']['email'] = "Un compte existe déjà avec cet identifiant ou email.";
+											}
+										}/*
 										if (mysqli_num_rows($result1) > 0)
 										{
 											$_SESSION['error']['email'] = "Un compte existe déjà avec cet identifiant ou email.";
-										}
-									} else {
+										}*/
+									} 
+									else
+									{
 										$_SESSION['error']['email'] = "E-mail non valide";
 									}
 								}
