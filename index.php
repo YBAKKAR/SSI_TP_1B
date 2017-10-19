@@ -3,6 +3,7 @@
 
 	<?php
 		echo file_get_contents("header.php");
+		include("security_functions.php");
 	?>
 
 	<body>
@@ -31,7 +32,7 @@
 				unset($_SESSION['error']);
 			}
 
-			if(isset($_SESSION['username']) && isset($_COOKIE[$_SESSION['username']])  && $_COOKIE[$_SESSION['username']]==$_SESSION['username'])
+			if(should_connect())
 			{
 				header("Location: home.php");
 			} 
@@ -61,17 +62,10 @@
 						{
 							$_SESSION['username']=$username;
 							
-							if (!isset($_COOKIE[$username]))
+							if (first_time())
 							{
-								$limiter=":";
-								$str="$username$limiter".rand().":".(time()+60*5)."$limiter";
-								$options = [
-						            'salt' => $key,
-						        ];
-						        $hashed_str = password_hash ($str,PASSWORD_DEFAULT,$options);
-						        $two_factor_token = $str.$hashed_str;
 
-						        $two_factor_token = base64_encode($two_factor_token);
+						        $two_factor_token = generate_2step_verification_hash($username);
 
 								$to = $email;
 								$subject = "Wahoo! - Authentification à deux facteur:";

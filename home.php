@@ -9,7 +9,8 @@
 
 		<?php
 			session_start();
-			if(!isset($_COOKIE[$_SESSION['username']]) || !isset($_SESSION['username']) || $_COOKIE[$_SESSION['username']] != $_SESSION['username'])
+			include("security_functions.php");
+			if(!should_connect())
 			{
 				header("Location: index.php");
 				exit;

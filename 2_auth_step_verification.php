@@ -33,30 +33,19 @@
         </div>
     </body>
     <?php
-    
+    include("security_functions.php");
     session_start();
-    if(isset($_POST['submit']) && isset($_SESSION['username']))
+    if(isset($_POST['submit']) && login_correct())
     {
-        include('conf/db.inc');
-        $limiter=":";
-        $token_validator = base64_decode($_POST['token-verif']);
-        list($username, $rand, $exp,$token) = explode(":", $token_validator);
-        $str="$username$limiter$rand$limiter$exp$limiter";
 
-        $options = [
-            'salt' => $key,
-        ];
-        $token_validator = password_hash ($str,PASSWORD_DEFAULT,$options);
-        $token_validator = base64_encode($str.$token_validator);
-        if($token_validator == $_POST['token-verif'] ){
-            if(time()<=$exp){
-                setcookie($username,$_SESSION['username'],time()+3600*24*30);
-                echo "$username";
-                header("Location: index.php");
-            }else{
+        include('conf/db.inc');
+        $username = $_SESSION['username'];        
+        if( verify_2step_verification_hash($username,$_POST['token-verif']) ){
+            generate_cookies($username);
+            header("Location: index.php");
+        }else{
                 session_destroy();
                 header("Location: index.php");
-            }
         }
     }
 
