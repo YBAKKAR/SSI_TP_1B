@@ -9,6 +9,8 @@
 	
 	$db_base = 'wahoo_accounts';
 
+	$key= '$2a$12$XRoxnzQl2CDD.IVrzwKAQOOlPZkiU659oyplKfuv31D.wL8VX7QFS';
+
 	$mysqli=mysqli_connect($db_host,$db_user,$db_pass,$db_base) or die("Database Error");
 
 ?>

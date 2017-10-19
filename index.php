@@ -31,7 +31,7 @@
 				unset($_SESSION['error']);
 			}
 
-			if(isset($_SESSION['username']))
+			if(isset($_COOKIE['username']) && isset($_SESSION['username']))
 			{
 				header("Location: home.php");
 			} else {
@@ -54,33 +54,38 @@
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_bind_result($stmt,$username,$email,$password,$token,$active);
 						mysqli_stmt_fetch($stmt);
-						//echo (is_null($username));
 						
 						if( !is_null($username) && $active==1)
 						{
 							$_SESSION['username']=$username;
 							
 							if (!isset($_COOKIE['username'])){
-								$two_factor_token = substr(md5(rand()),rand(0,26),5);
+								$limiter=":";
+								$str="$username$limiter".rand().":".(time()+60*5)."$limiter";
+								$options = [
+						            'salt' => $key,
+						        ];
+						        $hashed_str = password_hash ($str,PASSWORD_DEFAULT,$options);
+						        $two_factor_token = $str.$hashed_str;
+
+						        $two_factor_token = base64_encode($two_factor_token);
 
 								$to = $email;
 								$subject = "Wahoo! - Authentification à deux facteur:";
 								$header = "Wahoo! - Authentification à deux facteur:";
 								$message = "    Voici le code à utiliser pour votre 1er Authentification:\n";
-								$message .= "    $two_factor_token";
+								$message .= "    <b>$two_factor_token</b>\n";
 								$message .= "A bientôt !";
 
 								$sentmail = mail($to,$subject,$message,$header);
 
 								if($sentmail)
 								{
-									echo "go to header verif token";
+									header("Location: 2_auth_step_verification.php");
 								} else {
 									echo "<p class=\"bg-danger\">Erreur lors de l'envoi du mail de confirmation.</p>";
 								}
-
-								echo "setcookie('username',$username,time()+3600*24*30); in token verif";
-								session_destroy();
+								//session_destroy();
 								exit;
 							}
 							else{

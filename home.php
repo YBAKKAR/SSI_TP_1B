@@ -9,7 +9,7 @@
 
 		<?php
 			session_start();
-			if($_SESSION['username'] == '')
+			if($_SESSION['username'] == '' OR !isset($_COOKIE['username']))
 			{
 				header("Location: index.php");
 				exit;
