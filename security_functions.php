@@ -50,10 +50,10 @@
 		return true;
 	}
 	// TWO STEP VERIFICATION FUNCTIONS
-	function generate_2step_verification_hash($username){ // 5min duration
+	function generate_2step_verification_hash($username){ // 1min duration
 		$str=":";
 		$random_nbr= rand(10,60);
-		$expire_in = time()+60*5;
+		$expire_in = time()+60*1;
 		session_start();
 		$_SESSION['expire_token'] = $expire_in;
 		$pre_signature = $username.$str.$expire_in.$str.$random_nbr;
