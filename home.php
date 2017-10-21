@@ -30,7 +30,7 @@
 							<?php echo "Bonjour ".$_SESSION['username']." !"; ?>
 						</div>
 
-						<div id="message" class="bg-danger">
+						<div  class="bg-danger">
 							<?php echo "Ce compte possède un compte SSH valide"; ?>
 						</div>
 

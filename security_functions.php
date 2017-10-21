@@ -32,8 +32,6 @@
 	{
 		$str=":";
 		list($cookie_value,$value_signature) = explode($str,$cookie);
-		
-		echo verify_signature_with_secret($cookie_value,$value_signature);
 		return verify_signature_with_secret($cookie_value,$value_signature);
 	}
 	
