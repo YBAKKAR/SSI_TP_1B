@@ -23,7 +23,14 @@
 							include('conf/db.inc');
 							$stmt =  mysqli_stmt_init($mysqli);
 
-							if(isset($_POST['submit']))
+							 $response=$_POST['g-recaptcha-response'];
+							 $secret = '6LcjRzQUAAAAAFThMCW7U48PZMs6M1A1mPM-z_Mm';
+
+				            $rsp=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response");
+				            $arr= json_decode($rsp,TRUE);
+				            if($arr['success'] == TRUE){
+				            	
+				            	if(isset($_POST['submit']))
 							{
 								if($_POST['username'] == '')
 								{
@@ -101,28 +108,16 @@
 											}
 										}
 									}
-									/*if($result2)
-									{
-										$to = $email;
-										$subject = "Confirmation de création de votre compte Wahoo!";
-										$header = "Wahoo! - Votre compte";
-										$message = "Votre username Wahoo! : \n";
-										$message .= "    Login: $username\n";
-										$message .= "    Cliquez sur ce lien pour activer votre compte:\n";
-										$message .= "    http://localhost/wahoo/activation.php?user=$username&token=$token \n";
-										$message .= "A bientôt !";
-
-										$sentmail = mail($to,$subject,$message,$header);
-
-										if($sentmail)
-										{
-										echo "<p class=\"bg-success\">Un mail de confirmation vous a été envoyé à l'adresse $email.</p>";
-										} else {
-											echo "<p class=\"bg-danger\">Erreur lors de l'envoi du mail de confirmation.</p>";
-										}
-									}*/
 								}
 							}
+				            	
+				            	die;
+							}else
+							{ 
+								echo "<p class=\"bg-danger\">You're not a human.</p>";
+								die;
+							}
+
 						?>
 
 			</div>

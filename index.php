@@ -95,7 +95,7 @@
 								}
 								exit;
 							}
-							else
+							else 
 							{
 								header("Location: home.php");
 							}

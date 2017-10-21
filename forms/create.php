@@ -1,5 +1,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="forms/create_account_style.css">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <div id="signupbox" style="display:none;margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -134,5 +135,3 @@
          </div>
     </div>
 </div>
-
-<script src='https://www.google.com/recaptcha/api.js'></script>
