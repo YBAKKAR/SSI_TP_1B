@@ -31,8 +31,12 @@
 	function verify_cookies($cookie)
 	{
 		$str=":";
-		list($cookie_value,$value_signature) = explode($str,$cookie);
-		return verify_signature_with_secret($cookie_value,$value_signature);
+		if(strpos($cookie,$str))
+		{
+			list($cookie_value,$value_signature) = explode($str,$cookie);
+			return  verify_signature_with_secret($cookie_value,$value_signature);
+		}
+		return false;
 	}
 	
 	function generate_cookies($username) // username:signature
